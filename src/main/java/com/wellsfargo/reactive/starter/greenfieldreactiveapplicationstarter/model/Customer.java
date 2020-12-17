@@ -3,16 +3,19 @@ package com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.mod
 import lombok.*;
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
+
 @Builder
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class Account {
+public class Customer {
 
     @Id
-    private String id;
-    private Long accountNumber;
-    private Long routingNumber;
-    private String accountOwner;
+    private String customerId;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
+    private List<Account> accounts;
 }

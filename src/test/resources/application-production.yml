@@ -4,6 +4,7 @@ management:
     jmx:
       exposure:
         include: health,info
+      domain:
     web:
       exposure:
         include: health,info,metrics,threadump,env

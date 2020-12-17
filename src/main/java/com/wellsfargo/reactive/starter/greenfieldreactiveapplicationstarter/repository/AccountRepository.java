@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Mono;
 
-public interface AccountMongoRepository extends ReactiveMongoRepository<Account, String> {
+public interface AccountRepository extends ReactiveMongoRepository<Account, String> {
 
     Mono<Account> findByAccountOwner(String accountOwner);
 

@@ -41,6 +41,10 @@ dependencies {
 
     //Required only for unit testing or testing the application locally
     testImplementation 'com.playtika.testcontainers:embedded-mongodb:1.86'
+
+    compile group: 'org.springdoc', name: 'springdoc-openapi-webflux-ui', version: '1.5.1'
+    compile group: 'io.springfox', name: 'springfox-spring-webflux', version: '3.0.0'
+
 }
 
 springBoot {

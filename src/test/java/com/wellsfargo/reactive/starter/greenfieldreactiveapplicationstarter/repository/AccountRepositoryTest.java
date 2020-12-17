@@ -2,7 +2,6 @@ package com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.rep
 
 import com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.GreenfieldReactiveApplication;
 import com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.model.Account;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
 public class AccountRepositoryTest {
 
     @Autowired
-    private AccountMongoRepository repository;
+    private AccountRepository repository;
 
     @Test
     public void testFindById() {
