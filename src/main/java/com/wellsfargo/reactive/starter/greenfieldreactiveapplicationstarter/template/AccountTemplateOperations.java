@@ -4,6 +4,9 @@ import com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.mode
 import lombok.AllArgsConstructor;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.ReactiveRemoveOperation;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.CriteriaDefinition;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -24,6 +27,12 @@ public class AccountTemplateOperations {
 
     public Mono<Account> save(Mono<Account> account) {
         return template.save(account);
+    }
+
+    public Flux<Account> findByAccountNumberAndRoutingNumber(Long accountNumber, Long routingNumber) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("accountNumber").is(accountNumber).and("routingNumber").is(routingNumber));
+        return template.find(query, Account.class);
     }
 
     public ReactiveRemoveOperation.ReactiveRemove<Account> deleteAll() {
