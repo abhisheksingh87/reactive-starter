@@ -1,10 +1,3 @@
 management:
   endpoints:
     enabled-by-default: false
-    jmx:
-      exposure:
-        include: health,info
-      domain:
-    web:
-      exposure:
-        include: health,info,metrics,threadump,env
