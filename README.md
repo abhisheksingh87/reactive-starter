@@ -19,11 +19,11 @@ The **Application Starter Cookbook** provides recipes to help complete the tasks
 
 ### How to use this starter
 
-1. Clone this repository
+1. Clone this repository.
 
-1. Build the starter microservice locally: `gradlew bootJar`
+1. Build the starter microservice locally: `gradlew bootJar`.
   
-1. Run the starter microservice locally: `gradlew bootRun`
+1. Run the starter microservice locally: `gradlew bootRun`.
 
 1. Verify microservice health in the browser
    - `http://localhost:8080/actuator/info`
