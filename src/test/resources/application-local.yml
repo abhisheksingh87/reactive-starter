@@ -2,7 +2,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,threadump,env
+        include: health,info,metrics,threadump
   endpoint:
     health:
       show-details: always
