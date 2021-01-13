@@ -2,7 +2,6 @@ package com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.ser
 
 import com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.model.Customer;
 import com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.repository.CustomerRepository;
-import io.netty.util.AsyncMapping;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

@@ -3,8 +3,6 @@ package com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.mod
 import lombok.*;
 import org.springframework.data.annotation.Id;
 
-import java.util.List;
-
 @Builder
 @ToString
 @AllArgsConstructor
@@ -17,5 +15,4 @@ public class Customer {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private List<Account> accounts;
 }

@@ -25,7 +25,7 @@ public class AccountTemplateOperationsTest {
     @Test
     public void testSave() {
         //when
-        Account account = accountTemplate.save(Mono.just(new Account(null, 918345L, 234518L, "alex"))).block();
+        Account account = accountTemplate.save(Mono.just(new Account(null, "918345", "234518", "alex"))).block();
 
         //then
         assertThat(account.getId()).isNotNull();
@@ -34,7 +34,7 @@ public class AccountTemplateOperationsTest {
     @Test
     public void testFindById() {
         //given
-        Mono<Account> accountMono = accountTemplate.save(Mono.just(new Account(null, 918345L, 234518L, "alex")));
+        Mono<Account> accountMono = accountTemplate.save(Mono.just(new Account(null, "918345", "234518", "alex")));
 
         //when
         Mono<Account> accountMonoResult = accountTemplate.findById(accountMono.block().getId());
@@ -47,8 +47,8 @@ public class AccountTemplateOperationsTest {
     @Test
     public void testFindAll() {
         //given
-        Account account1 = accountTemplate.save(Mono.just(new Account(null, 918345L, 234518L, "alex"))).block();
-        Account account2 = accountTemplate.save(Mono.just(new Account(null, 918345L, 234518L, "alex"))).block();
+        Account account1 = accountTemplate.save(Mono.just(new Account(null, "918345", "234518", "alex"))).block();
+        Account account2 = accountTemplate.save(Mono.just(new Account(null, "918345", "234518", "alex"))).block();
 
         //when
         Flux<Account> accountFlux = accountTemplate.findAll();
@@ -62,7 +62,7 @@ public class AccountTemplateOperationsTest {
     @Test
     public void testFindByAccountNumberAndRoutingNumber() {
         //given
-        Account account = accountTemplate.save(Mono.just(new Account(null, 9183345L, 2334518L, "john"))).block();
+        Account account = accountTemplate.save(Mono.just(new Account(null, "9183345L", "2334518", "john"))).block();
 
         //when
         Flux<Account> createdAccount = accountTemplate.findByAccountNumberAndRoutingNumber(account.getAccountNumber(), account.getRoutingNumber());

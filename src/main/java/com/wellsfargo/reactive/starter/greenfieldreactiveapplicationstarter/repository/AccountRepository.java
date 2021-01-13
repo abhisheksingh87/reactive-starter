@@ -10,5 +10,7 @@ public interface AccountRepository extends ReactiveMongoRepository<Account, Stri
     Mono<Account> findByAccountOwner(String accountOwner);
 
     @Query("{ 'accountNumber': ?0, 'routingNumber': ?1}")
-    Mono<Account> findByAccountNumberAndRoutingNumber(Long accountNumber, Long routingNumber);
+    Mono<Account> findByAccountNumberAndRoutingNumber(String accountNumber, String routingNumber);
+
+    Mono<Account> findByRoutingNumber(String routingNumber);
 }

@@ -26,9 +26,8 @@ public class CustomerControllerTest {
 
     @Test
     public void createCustomer() {
-
-        Account account = Account.builder().accountNumber(678954L)
-                                           .routingNumber(34245L)
+        Account account = Account.builder().accountNumber("678954")
+                                           .routingNumber("34245")
                                            .accountOwner("john smith")
                                            .build();
         List<Account> accounts = new ArrayList<>();
@@ -36,7 +35,7 @@ public class CustomerControllerTest {
         Customer customer = Customer.builder().firstName("john")
                                               .lastName("smith")
                                               .phoneNumber("7589756789")
-                                              .accounts(accounts).build();
+                                              .build();
 
         webTestClient.post().uri("/customer").contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
                 .body(Mono.just(customer),Customer.class)

@@ -6,3 +6,8 @@ management:
   endpoint:
     health:
       show-details: always
+
+mongo:
+  hosts:
+    - localhost:27017
+  database: test

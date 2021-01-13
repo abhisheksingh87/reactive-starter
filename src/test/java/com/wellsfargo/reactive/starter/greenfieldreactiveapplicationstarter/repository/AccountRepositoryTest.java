@@ -26,7 +26,7 @@ public class AccountRepositoryTest {
     @Test
     public void testFindById() {
         //given
-        Account account = repository.save(new Account(null, 918345L, 234518L, "alex"))
+        Account account = repository.save(new Account(null, "918345", "234518", "alex"))
                                     .block();
 
         //when
@@ -47,7 +47,7 @@ public class AccountRepositoryTest {
 
     @Test
     public void testSave() {
-        Mono<Account> accountMono = repository.save(new Account(null, 918345L, 234518L, "alex"));
+        Mono<Account> accountMono = repository.save(new Account(null, "918345", "234518", "alex"));
 
         StepVerifier
                 .create(accountMono)
@@ -59,7 +59,7 @@ public class AccountRepositoryTest {
     @Test
     public void testFindByAccountOwner() {
         //given
-        Account account = repository.save(new Account(null, 918345L, 234518L, "ron"))
+        Account account = repository.save(new Account(null, "918345", "234518", "ron"))
                                     .block();
 
         //when
@@ -80,7 +80,7 @@ public class AccountRepositoryTest {
     @Test
     public void testFindByAccountNumberAndRoutingNumber() {
         //given
-        Account account = repository.save(new Account(null, 918345L, 235189L, "john"))
+        Account account = repository.save(new Account(null, "918345", "234518", "john"))
                                     .block();
 
         //when
@@ -101,10 +101,10 @@ public class AccountRepositoryTest {
     @Test
     public void testFindAll() {
         //given
-        repository.save(new Account(null, 918345L, 234518L, "mike"))
+        repository.save(new Account(null, "918345", "234518", "mike"))
                   .block();
         ExampleMatcher matcher = ExampleMatcher.matching().withMatcher("accountOwner", startsWith());
-        Example<Account> example = Example.of(new Account(null, 918345L, 234518L, "mike"), matcher);
+        Example<Account> example = Example.of(new Account(null, "918345", "234518", "mike"), matcher);
 
         //when
         Flux<Account> accountFlux = repository.findAll(example);

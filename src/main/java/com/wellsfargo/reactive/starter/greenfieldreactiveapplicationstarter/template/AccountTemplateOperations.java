@@ -28,7 +28,7 @@ public class AccountTemplateOperations {
         return template.save(account);
     }
 
-    public Flux<Account> findByAccountNumberAndRoutingNumber(Long accountNumber, Long routingNumber) {
+    public Flux<Account> findByAccountNumberAndRoutingNumber(String accountNumber, String routingNumber) {
         Query query = new Query();
         query.addCriteria(Criteria.where("accountNumber").is(accountNumber).and("routingNumber").is(routingNumber));
         return template.find(query, Account.class);

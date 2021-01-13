@@ -21,4 +21,11 @@ public class AccountRouter {
 
               .and(route(POST("/accounts").and(accept(MediaType.APPLICATION_JSON)), accountHandler::save));
     }
+
+    @Bean
+    public RouterFunction<ServerResponse> accountsQueryRoute(AccountHandler accountHandler) {
+        return RouterFunctions.route()
+                .GET("/accounts", RequestPredicates.queryParam("routingNumber", t -> true), accountHandler::findByRoutingNumber)
+                .build();
+    }
 }

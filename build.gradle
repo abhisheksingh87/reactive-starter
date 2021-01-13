@@ -30,6 +30,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.cloud:spring-cloud-starter:2.2.6.RELEASE'
+    implementation "io.github.resilience4j:resilience4j-spring-boot2:1.6.1"
 
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -39,12 +40,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
 
-    //Required only for unit testing or testing the application locally
-    testImplementation 'com.playtika.testcontainers:embedded-mongodb:1.86'
-
     compile group: 'org.springdoc', name: 'springdoc-openapi-webflux-ui', version: '1.5.1'
-    compile group: 'io.springfox', name: 'springfox-spring-webflux', version: '3.0.0'
-
 }
 
 springBoot {

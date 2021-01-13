@@ -12,7 +12,7 @@ public class Account {
 
     @Id
     private String id;
-    private Long accountNumber;
-    private Long routingNumber;
+    private String accountNumber;
+    private String routingNumber;
     private String accountOwner;
 }
