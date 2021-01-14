@@ -1,7 +1,6 @@
 package com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.filter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
@@ -9,22 +8,21 @@ import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
 @Component
+@Slf4j
 public class LogFilter implements WebFilter {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(LogFilter.class);
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         long startTime = System.currentTimeMillis();
         String path = exchange.getRequest().getURI().getPath();
-        LOGGER.info("Serving '{}'", path);
+        log.info("Serving '{}'", path);
 
         return chain.filter(exchange).doAfterTerminate(() -> {
                     exchange.getResponse()
                             .getHeaders()
-                            .forEach((key, value) -> LOGGER.info("Response header '{}': {}", key, value));
+                            .forEach((key, value) -> log.info("Response header '{}': {}", key, value));
 
-                    LOGGER.info("Served '{}' as {} in {} msec",
+            log.info("Served '{}' as {} in {} msec",
                             path,
                             exchange.getResponse().getStatusCode(),
                             System.currentTimeMillis() - startTime);

@@ -3,6 +3,9 @@ package com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.han
 import com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.error.RoutingNumberRequiredException;
 import com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.model.Account;
 import com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.repository.AccountRepository;
+import io.github.resilience4j.bulkhead.annotation.Bulkhead;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,6 +42,9 @@ public class AccountHandler {
      * @param request
      * @return
      */
+    @CircuitBreaker(name = "accountService")
+    @Bulkhead(name = "accountService")
+    @Retry(name = "accountService")
     public Mono<ServerResponse> findByRoutingNumber(ServerRequest request) {
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
