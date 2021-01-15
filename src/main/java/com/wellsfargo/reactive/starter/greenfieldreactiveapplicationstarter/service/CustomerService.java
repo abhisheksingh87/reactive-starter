@@ -25,8 +25,8 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
 
     @CircuitBreaker(name = CUSTOMER_SERVICE)
-    @Retry(name = CUSTOMER_SERVICE)
-    @Bulkhead(name = CUSTOMER_SERVICE)
+ //   @Retry(name = CUSTOMER_SERVICE)
+ //   @Bulkhead(name = CUSTOMER_SERVICE)
     public Flux<Customer> getAllCustomers() {
         return customerRepository.findAll()
                 .switchIfEmpty(Flux.error(new IOException("Customer Not Found")));
@@ -36,7 +36,7 @@ public class CustomerService {
     @Bulkhead(name = CUSTOMER_SERVICE)
     public Mono<Customer> findById(String customerId) {
         return customerRepository.findById(customerId)
-                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer Not Found")));
+                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NO_CONTENT, "Customer Not Found")));
     }
 
     public Mono<Customer> createCustomer(Customer customer) {

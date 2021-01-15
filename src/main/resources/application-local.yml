@@ -19,8 +19,8 @@ resilience4j:
     default:
       registerHealthIndicator: true
       slidingWindowSize: 10
-      minimumNumberOfCalls: 6
-      permittedNumberOfCallsInHalfOpenState: 3
+      minimumNumberOfCalls: 3
+      permittedNumberOfCallsInHalfOpenState: 2
       automaticTransitionFromOpenToHalfOpenEnabled: true
       waitDurationInOpenState: 5s
       failureRateThreshold: 50
@@ -35,43 +35,3 @@ resilience4j:
   instances:
     customerService:
       baseConfig: default
-
-resilience4j.retry:
-  configs:
-    default:
-      maxRetryAttempts: 3
-      waitDuration: 100
-      retryExceptions:
-        - org.springframework.web.client.HttpServerErrorException
-        - java.util.concurrent.TimeoutException
-        - java.io.IOException
-        - org.springframework.web.server.ResponseStatusException
-      ignoreExceptions:
-        - com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.error.BusinessException
-  instances:
-    customerService:
-      baseConfig: default
-
-resilience4j.bulkhead:
-  configs:
-    default:
-      maxConcurrentCalls: 2
-  instances:
-    customerService:
-      baseConfig: default
-
-resilience4j.ratelimiter:
-  configs:
-    default:
-      registerHealthIndicator: false
-      limitForPeriod: 10
-      limitRefreshPeriod: 1s
-      timeoutDuration: 0
-      eventConsumerBufferSize: 100
-  instances:
-    customerService:
-      baseConfig: default
-    accountService:
-      limitForPeriod: 6
-      limitRefreshPeriod: 500ms
-      timeoutDuration: 3s

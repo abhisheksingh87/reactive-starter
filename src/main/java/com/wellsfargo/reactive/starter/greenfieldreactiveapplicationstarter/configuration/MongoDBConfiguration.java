@@ -3,9 +3,10 @@ package com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.con
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractReactiveMongoConfiguration;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -20,7 +21,7 @@ public class MongoDBConfiguration extends AbstractReactiveMongoConfiguration {
 
     @Override
     protected String getDatabaseName() {
-        return "test";
+        return mongoProperties.getDatabase();
     }
 
     @Override
@@ -35,6 +36,10 @@ public class MongoDBConfiguration extends AbstractReactiveMongoConfiguration {
 
     private String getMongoDBConnectionUrl() {
         return String.format(CONNECTION_URL, mongoProperties.getHosts().get(0), mongoProperties.getDatabase());
+    }
 
+    @Bean
+    public ReactiveMongoTemplate reactiveMongoTemplate() {
+        return new ReactiveMongoTemplate(reactiveMongoClient(), getDatabaseName());
     }
 }
