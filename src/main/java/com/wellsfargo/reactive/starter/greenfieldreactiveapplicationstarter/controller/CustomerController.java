@@ -1,17 +1,22 @@
 package com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.controller;
 
+import com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.helper.LogHelper;
 import com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.model.Customer;
 import com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.service.CustomerService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import static com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.helper.LogHelper.logOnNext;
+
 @RestController
 @RequestMapping("/customer")
 @AllArgsConstructor
+@Slf4j
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -28,8 +33,10 @@ public class CustomerController {
     }
 
     @GetMapping("/{customerId}")
-    public Mono<Customer> getUserById(@PathVariable String customerId){
-        return customerService.findById(customerId);
+    public Mono<Customer> getCustomerById(@PathVariable String customerId){
+        return customerService.findById(customerId)
+                .doOnEach(logOnNext(customer -> log.info("Customer: {}", customer)))
+                .subscriberContext(LogHelper.put("CUSTOMER-ID", customerId));
     }
 
     @DeleteMapping("/{customerId}")

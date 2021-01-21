@@ -1,4 +1,4 @@
-package com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.error;
+package com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.errorhandling;
 
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
@@ -18,10 +18,10 @@ import java.util.Optional;
 
 @Component
 @Order(-2)
-public class GlobalExceptionHandler extends AbstractErrorWebExceptionHandler {
+public class WebExceptionHandler extends AbstractErrorWebExceptionHandler {
 
-    public GlobalExceptionHandler(ErrorAttributes errorAttributes, ResourceProperties resourceProperties,
-                                  ApplicationContext applicationContext, ServerCodecConfigurer codeConfigurer) {
+    public WebExceptionHandler(ErrorAttributes errorAttributes, ResourceProperties resourceProperties,
+                               ApplicationContext applicationContext, ServerCodecConfigurer codeConfigurer) {
         super(errorAttributes, resourceProperties, applicationContext);
         this.setMessageWriters(codeConfigurer.getWriters());
     }

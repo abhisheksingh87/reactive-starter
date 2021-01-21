@@ -1,4 +1,4 @@
-package com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.error;
+package com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.errorhandling;
 
 public class BusinessException extends RuntimeException {
 

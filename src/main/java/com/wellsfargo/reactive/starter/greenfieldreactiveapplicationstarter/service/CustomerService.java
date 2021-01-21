@@ -4,7 +4,6 @@ import com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.mode
 import com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.repository.CustomerRepository;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import io.github.resilience4j.retry.annotation.Retry;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -14,6 +13,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
+
+import static com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.helper.LogHelper.logOnNext;
 
 @Component
 @AllArgsConstructor
@@ -25,8 +26,6 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
 
     @CircuitBreaker(name = CUSTOMER_SERVICE)
- //   @Retry(name = CUSTOMER_SERVICE)
- //   @Bulkhead(name = CUSTOMER_SERVICE)
     public Flux<Customer> getAllCustomers() {
         return customerRepository.findAll()
                 .switchIfEmpty(Flux.error(new IOException("Customer Not Found")));
@@ -36,6 +35,7 @@ public class CustomerService {
     @Bulkhead(name = CUSTOMER_SERVICE)
     public Mono<Customer> findById(String customerId) {
         return customerRepository.findById(customerId)
+                .doOnEach(logOnNext(customer -> log.info("Customer: {}", customer)))
                 .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NO_CONTENT, "Customer Not Found")));
     }
 

@@ -1,5 +1,5 @@
-spring:
-  data:
-    mongodb:
-      uri: mongodb://${embedded.mongodb.host}:${embedded.mongodb.port}/${embedded.mongodb.database}
 
+mongo:
+  hosts:
+    - localhost:27017
+  database: test

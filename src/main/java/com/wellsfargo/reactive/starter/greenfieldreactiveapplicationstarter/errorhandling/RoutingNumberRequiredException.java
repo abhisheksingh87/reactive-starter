@@ -1,4 +1,4 @@
-package com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.error;
+package com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.errorhandling;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;

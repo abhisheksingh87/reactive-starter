@@ -1,4 +1,4 @@
-package com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.error;
+package com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.errorhandling;
 
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
