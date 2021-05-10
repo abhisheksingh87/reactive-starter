@@ -14,7 +14,7 @@ mongo:
   database: test
 
 resilience4j:
- circuitbreaker:
+  circuitbreaker:
   configs:
     default:
       registerHealthIndicator: true
@@ -31,7 +31,10 @@ resilience4j:
         - java.io.IOException
         - org.springframework.web.server.ResponseStatusException
       ignoreExceptions:
-        - com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.error.BusinessException
   instances:
     customerService:
       baseConfig: default
+  retry:
+    configs:
+  bulkhead:
+    configs:

@@ -1,14 +1,21 @@
 package com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.repository;
 
+import com.mongodb.ClientSessionOptions;
+import com.mongodb.reactivestreams.client.ClientSession;
+import com.mongodb.reactivestreams.client.MongoClient;
 import com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.GreenfieldReactiveApplication;
 import com.wellsfargo.reactive.starter.greenfieldreactiveapplicationstarter.model.Account;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.mongodb.core.ReactiveMongoOperations;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -23,8 +30,16 @@ public class AccountRepositoryTest {
     @Autowired
     private AccountRepository repository;
 
+    @Autowired
+    private MongoClient reactiveMongoClient;
+
+    @Autowired
+    private ReactiveMongoTemplate reactiveMongoTemplate;
+
+
     @Test
     public void testFindById() {
+
         //given
         Account account = repository.save(new Account(null, "918345", "234518", "alex"))
                                     .block();
@@ -42,6 +57,29 @@ public class AccountRepositoryTest {
                 })
                 .expectComplete()
                 .verify();
+
+    }
+
+    @Test
+    @Transactional
+    public void testReactiveSession() {
+        //given
+        Account account1 = new Account(null, "918345", "234518", "alex");
+        Account account2 = new Account(null, "23564", "432325", "smith");
+
+        //When
+        ClientSessionOptions sessionOptions = ClientSessionOptions.builder()
+                .causallyConsistent(true)
+                .build();
+
+        Publisher<ClientSession> session = reactiveMongoClient.startSession(sessionOptions);
+        reactiveMongoTemplate
+                .withSession(session)
+                .execute(action -> action.save(account1)
+                                         .then(action.save(account2)), ClientSession::close)
+                .subscribe();
+
+        //then
 
     }
 

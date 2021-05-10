@@ -10,7 +10,7 @@ import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 @Component
-public class StaticValueRouter {
+public class ErrorRouter {
 
     @Bean
     public RouterFunction<ServerResponse> staticValueRouter(StaticValueHandler staticValueHandler) {
